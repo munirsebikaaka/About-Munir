@@ -12,7 +12,6 @@ const About = () => {
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-10">
             Passionate Frontend Developer Creating Modern Digital Experiences
-            spgfx,g;srgkos;pk,;fdozi
           </h2>
           <p className="text-slate-400 leading-relaxed text-lg mb-4">
             I'm{" "}
