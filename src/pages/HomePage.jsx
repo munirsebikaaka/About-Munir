@@ -50,7 +50,7 @@ const HomePage = () => {
 
             <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full border border-blue-500/20 bg-slate-900 overflow-hidden shadow-2xl shadow-blue-500/10">
               <img
-                src="/munir.pn"
+                src="/munir.jpeg"
                 alt="Munir Sebikaaka"
                 className="w-full h-full object-cover"
               />
