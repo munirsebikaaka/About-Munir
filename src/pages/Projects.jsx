@@ -30,6 +30,7 @@ const projects = [
     badgeColor: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
 
     bg: "from-blue-500/10 to-cyan-500/10",
+    githubLink: "https://github.com/munirsebikaaka/marketplace-app",
   },
 
   {
@@ -53,6 +54,7 @@ const projects = [
     badgeColor: "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20",
 
     bg: "from-cyan-500/10 to-blue-500/10",
+    githubLink: "https://github.com/munirsebikaaka/react-native-parking-system",
   },
 
   {
@@ -76,6 +78,7 @@ const projects = [
     badgeColor: "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
 
     bg: "from-indigo-500/10 to-blue-500/10",
+    githubLink: "https://github.com/munirsebikaaka/trips-app",
   },
 
   {
@@ -101,6 +104,7 @@ const projects = [
     badgeColor: "bg-purple-500/10 text-purple-400 border border-purple-500/20",
 
     bg: "from-purple-500/10 to-blue-500/10",
+    githubLink: "https://github.com/munirsebikaaka/Branches-Managment-App",
   },
 ];
 
@@ -140,7 +144,7 @@ const Projects = () => {
               </div>
 
               <div className="p-7">
-                <div className="flex items-center justify-between mb-4 gap-4">
+                <div className="flex flex-col items-center justify-between mb-4 gap-4">
                   <h3 className="text-2xl font-bold text-white">
                     {project.title}
                   </h3>
@@ -191,7 +195,7 @@ const Projects = () => {
                   </a>
 
                   <a
-                    href="#"
+                    href={project.githubLink}
                     className="text-slate-400 flex items-center text-sm font-semibold hover:text-white transition">
                     GitHub
                     <GitBranch className="w-4 h-4 ml-1" />
