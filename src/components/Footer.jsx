@@ -1,4 +1,4 @@
-import { GitBranch, Mail, ArrowUp, GitBranchIcon } from "lucide-react";
+import { GitBranch, Mail, ArrowUp } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
