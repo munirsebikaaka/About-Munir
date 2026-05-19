@@ -57,14 +57,6 @@ const Footer = () => {
             </NavLink>
 
             <NavLink
-              to="https://linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-11 h-11 rounded-xl border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-blue-500 transition">
-              <GitBranchIcon className="w-5 h-5" />
-            </NavLink>
-
-            <NavLink
               to="mailto:munirsebikaka@gmail.com"
               className="w-11 h-11 rounded-xl border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-blue-500 transition">
               <Mail className="w-5 h-5" />

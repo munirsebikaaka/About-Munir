@@ -144,7 +144,7 @@ const Projects = () => {
               </div>
 
               <div className="p-7">
-                <div className="flex flex-col items-center justify-between mb-4 gap-4">
+                <div className="lg:flex  items-center justify-between mb-4 gap-4">
                   <h3 className="text-2xl font-bold text-white">
                     {project.title}
                   </h3>
