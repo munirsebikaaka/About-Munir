@@ -1,10 +1,11 @@
-import Contacts from "./pages/Contacts";
+// import Contacts from "./pages/Contacts";
 import Navbar from "./components/Navigation";
 import HomePage from "./pages/HomePage";
 import Skills from "./pages/Skills";
 import About from "./pages/About";
 import Footer from "./components/Footer";
 import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/skills" element={<Skills />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contacts />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
       </BrowserRouter>

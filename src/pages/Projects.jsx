@@ -1,10 +1,4 @@
-import {
-  ShoppingBag,
-  MapPin,
-  Building2,
-  ExternalLink,
-  GitBranch,
-} from "lucide-react";
+import { ShoppingBag, MapPin, Building2, GitBranch } from "lucide-react";
 
 const projects = [
   {
@@ -187,13 +181,6 @@ const Projects = () => {
                 </div>
 
                 <div className="flex items-center gap-6">
-                  <a
-                    href="#"
-                    className="text-blue-400 flex items-center text-sm font-semibold hover:text-blue-300 transition">
-                    Live Demo
-                    <ExternalLink className="w-4 h-4 ml-1" />
-                  </a>
-
                   <a
                     href={project.githubLink}
                     className="text-slate-400 flex items-center text-sm font-semibold hover:text-white transition">

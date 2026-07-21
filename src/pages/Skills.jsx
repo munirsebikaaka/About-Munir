@@ -62,6 +62,12 @@ const skills = [
 ];
 
 const Skills = () => {
+  const interval = setInterval(() => {
+    const progress = +1;
+    console.log(progress);
+  }, 30);
+
+  interval;
   return (
     <section
       id="skills"
