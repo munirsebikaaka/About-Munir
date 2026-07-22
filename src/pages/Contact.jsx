@@ -9,9 +9,11 @@ const Contact = () => {
     reason: "",
   });
 
-  const [isNameAvailable, setIsNameAvailable] = useState(false);
-  const [isSubjectAvailable, setIsSubjectAvailable] = useState(false);
-  const [isReasonAvailable, setIsReasonAvailable] = useState(false);
+  const [inputErrors, setInputErrors] = useState({
+    namesError: "",
+    subjectError: "",
+    reasonError: "",
+  });
 
   const handleChanges = (e) => {
     const { name, value } = e.target;
@@ -21,22 +23,38 @@ const Contact = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!values.names.trim()) {
-      setIsNameAvailable(true);
+      setInputErrors((err) => ({
+        ...err,
+        namesError: "Name required!",
+      }));
       return;
     }
+    setInputErrors((err) => ({ ...err, namesError: "" }));
+
     if (!values.subject.trim()) {
-      setIsSubjectAvailable(true);
+      setInputErrors((err) => ({
+        ...err,
+        subjectError: "Subject required!",
+      }));
       return;
     }
+    setInputErrors((err) => ({ ...err, subjectError: "" }));
+
     if (!values.reason.trim()) {
-      setIsReasonAvailable(true);
+      setInputErrors((err) => ({
+        ...err,
+        reasonError: "Reason required!",
+      }));
       return;
     }
+    setInputErrors((err) => ({ ...err, reasonError: "" }));
+    setValues((values) => ({ ...values, names: "", subject: "", reason: "" }));
 
     alert("successfully set!!!");
   };
 
   const emailAddress = "munirsebikaaka@gmail.com";
+  const inputStyles = `w-full rounded-2xl border bg-slate-950 py-1.5 pl-3  outline-none focus:border-blue-500 ${inputErrors.reasonError && values.reason.length < 1 ? "border-red-400" : "border-slate-800"}`;
 
   return (
     <section className="relative pt-32 pb-24 px-6 min-h-screen bg-slate-950 text-slate-100 overflow-hidden">
@@ -96,6 +114,19 @@ const Contact = () => {
                   </p>
                 </div>
               </a>
+              <a
+                href="https://github.com/munirsebikaaka"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-2xl border border-slate-800 bg-slate-950 px-5 py-4 text-slate-100 hover:border-blue-500 hover:text-blue-400 transition">
+                <GitBranch className="w-5 h-5" />
+                <div>
+                  <p className="text-sm text-slate-400">GitHub</p>
+                  <p className="text-white font-medium">
+                    github.com/munirsebikaaka
+                  </p>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -109,7 +140,7 @@ const Contact = () => {
                 values={values.names}
                 placeholder={"Your full names"}
                 handleChanges={handleChanges}
-                isValueNotAvailable={isNameAvailable}
+                inputError={inputErrors.namesError}
               />
 
               <Input
@@ -118,37 +149,36 @@ const Contact = () => {
                 placeholder={"Project idea or question"}
                 values={values.subject}
                 handleChanges={handleChanges}
-                isValueNotAvailable={isSubjectAvailable}
+                inputError={inputErrors.subjectError}
               />
             </div>
 
-            <label className="space-y-2 text-sm text-slate-300">
+            <label className="relative space-y-2 text-sm text-slate-300">
               <span>Reason</span>
               <textarea
                 value={values.reason}
                 onChange={handleChanges}
                 name="reason"
-                rows={6}
+                rows={4}
                 placeholder="Tell me what you need help with"
-                className="w-full rounded-3xl border border-slate-800 bg-slate-950 px-4 py-4 text-slate-100 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 resize-none"
+                className={inputStyles}
               />
 
-              {isReasonAvailable && (
-                <p className="text-red-400/90 text-sm pl-[10px]">
-                  Please input your reason
+              {inputErrors.reasonError && values.reason.length < 1 && (
+                <p className="absolute top-0 right-0 text-red-400/90 text-sm pl-[10px]">
+                  {inputErrors.reasonError}
                 </p>
               )}
             </label>
 
             <button
               type="submit"
-              className="w-full rounded-3xl bg-blue-600 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700">
+              className="w-full rounded-3xl bg-blue-600 p-2 mt-5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700 cursor-pointer">
               Send message
             </button>
 
-            <p className="text-xs text-slate-500">
-              The form opens your email client to send the message directly. If
-              you prefer, click the email or GitHub link above.
+            <p className="text-xs text-center text-slate-500">
+              Send me a message and i will get back to you soon.
             </p>
           </form>
         </div>
