@@ -1,0 +1,50 @@
+export const createHandleBlur = (fieldNames, setErrors) => {
+  return (e) => {
+    const { name, value } = e.target;
+    if (!value.trim()) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: `${fieldNames[name]} is required`,
+      }));
+    }
+  };
+};
+
+export const validatePassword = (password) => {
+  const lowercaseChars = "abcdefghijklmnopqrstuvwxyz".split("");
+  const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  const numberChars = "0123456789".split("");
+  const specialChars = "!@#$%^&*()_+-=[]{}|;:'\",.<>/?~`\\ ".split("");
+
+  const passwordArray = password.split("");
+
+  const hasLowercase = lowercaseChars.some((char) =>
+    passwordArray.includes(char),
+  );
+  const hasUppercase = uppercaseChars.some((char) =>
+    passwordArray.includes(char),
+  );
+  const hasNumber = numberChars.some((char) => passwordArray.includes(char));
+  const hasSpecialCharacters = specialChars.some((char) =>
+    passwordArray.includes(char),
+  );
+
+  return hasLowercase && hasUppercase && hasNumber && hasSpecialCharacters;
+};
+
+export const IsAllInputValuesProvided = (
+  values,
+  inputFieldNames,
+  setErrors,
+) => {
+  const newErrors = {};
+
+  Object.keys(values).forEach((key) => {
+    if (!values[key].trim()) {
+      newErrors[key] = `${inputFieldNames[key]} is required`;
+    }
+  });
+  setErrors(newErrors);
+
+  return Object.keys(newErrors).length === 0;
+};
