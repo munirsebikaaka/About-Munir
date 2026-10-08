@@ -7,27 +7,29 @@ export const postData = (data, endPoint) => {
   return axios.post(`${DATABASE_URL}/${endPoint}.json`, data);
 };
 
-export async function fetchData(endPoint, setErrorMessage) {
+export const fetchData = async (endPoint, idToken, setErrorMessage) => {
+  if (setErrorMessage) setErrorMessage("");
   try {
-    const response = await axios.get(`${DATABASE_URL}/${endPoint}.json`);
+    const authQuery = idToken ? `?auth=${encodeURIComponent(idToken)}` : "";
+    const response = await axios.get(
+      `${DATABASE_URL}/${endPoint}.json${authQuery}`,
+    );
     const data = response.data || {};
     const appData = [];
     for (const key in data) {
-      const project = {
+      const product = {
         id: key,
         ...data[key],
       };
-      appData.push(project);
+      appData.push(product);
     }
     return appData;
   } catch (error) {
-    if (setErrorMessage) {
-      setErrorMessage(getFriendlyErrorMessage(error, "fetch"));
-    }
-    return [];
+    const message = getFriendlyErrorMessage(error, "fetch");
+    if (setErrorMessage) setErrorMessage(message);
+    throw error;
   }
-}
-
+};
 export const updateData = (endPoint, id, updatedData) => {
   return axios.patch(`${DATABASE_URL}/${endPoint}/${id}.json`, updatedData);
 };

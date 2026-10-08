@@ -3,49 +3,36 @@ import { getFriendlyErrorMessage } from "../utils/errorMessages";
 
 const API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
 
-export async function authenticateUser(email, password, setErrorMessage) {
+export const authenticateUser = async (email, password, setErrorMessage) => {
   try {
     const response = await axios.post(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
       {
-        email,
-        password,
+        email: email.trim(),
+        password: password.trim(),
         returnSecureToken: true,
       },
     );
-
-    if (!response) {
-      return;
-    }
-
     return response.data;
   } catch (err) {
-    console.log("FULL FIREBASE ERROR:", err.response.data.error.message);
-    setErrorMessage(
-      getFriendlyErrorMessage(err.response.data.error.message, "login"),
-    );
+    setErrorMessage(getFriendlyErrorMessage(err, "login"));
+    console.log("ERROR FROM THE AUTHENTICATEUSER FUNCTION", err.message);
   }
-}
+};
 
-export async function registerUser(email, password, setErrorMessage) {
+export const registerUser = async (email, password, setErrorMessage) => {
   try {
     const response = await axios.post(
       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
       {
-        email,
-        password,
+        email: email.trim(),
+        password: password.trim(),
         returnSecureToken: true,
       },
     );
-
-    if (!response) {
-      return;
-    }
     return response.data;
   } catch (err) {
-    console.log("FULL FIREBASE ERROR:", err.response?.data);
-    setErrorMessage(
-      getFriendlyErrorMessage(err.response?.data.message, "signup"),
-    );
+    setErrorMessage(getFriendlyErrorMessage(err, "signup"));
+    console.log("ERROR FROM THE REGISTERUSER FUNCTION", err.message);
   }
-}
+};

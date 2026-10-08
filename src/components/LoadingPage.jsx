@@ -6,7 +6,7 @@ const LoadingPage = ({ data }) => {
       <div className="relative">
         <Loader />
       </div>
-      <p className="text-[#94a3b8] font-medium animate-pulse">
+      <p className="text-text-faint font-medium animate-pulse">
         Fetching {data}...
       </p>
     </div>

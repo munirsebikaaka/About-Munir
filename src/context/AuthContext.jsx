@@ -9,25 +9,32 @@ export const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const login = async (email, password) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const login = async (email, password, setAuthenticateError) => {
     setError(null);
     setLoading(true);
     try {
-      const response = await authenticateUser(email, password, setError);
+      const response = await authenticateUser(
+        email,
+        password,
+        setAuthenticateError,
+      );
       const uid = response.localId;
 
-      const users = await fetchData("users", setError);
-      const userData = users.find((u) => u.id === uid);
-      if (!userData) throw new Error("User data not found");
+      const users = await fetchData("users", response.idToken, setError);
+      const userProfile = users.find((u) => u.id === uid);
+      if (!userProfile) throw new Error("User data not found");
+      const userData = { ...userProfile, idToken: response.idToken };
 
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
       return userData;
     } catch (err) {
-      setError(getFriendlyErrorMessage(err.message, "login"));
+      setError(getFriendlyErrorMessage(err, "login"));
+      console.log("ERROR FROM LOGIN FUNCTION", err.message);
     } finally {
       setLoading(false);
     }
@@ -37,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     setLoading(true);
     try {
-      const users = await fetchData("users", setError);
+      const users = await fetchData("users", undefined, setError);
       const ownerExists = users.some((u) => u.role === "owner");
 
       if (ownerExists) {
@@ -52,6 +59,7 @@ export const AuthProvider = ({ children }) => {
         name,
         email,
         role: "owner",
+        idToken: response.idToken,
         createdAt: new Date().toISOString(),
       };
 
@@ -61,7 +69,8 @@ export const AuthProvider = ({ children }) => {
 
       return userData;
     } catch (err) {
-      setError(getFriendlyErrorMessage(err.message, "signup"));
+      setError(getFriendlyErrorMessage(err, "signup"));
+      console.log("ERROR FROM SIGNUP FUNCTION", err.message);
     } finally {
       setLoading(false);
     }
@@ -73,11 +82,11 @@ export const AuthProvider = ({ children }) => {
     name,
     branchId,
     role = "worker",
-    workerId,
+    phoneNumber,
   ) => {
     setError(null);
     try {
-      const response = await registerUser(email, password, setError);
+      const response = await registerUser(email, password);
       const uid = response.localId;
       const userData = {
         id: uid,
@@ -85,18 +94,18 @@ export const AuthProvider = ({ children }) => {
         email,
         role,
         branchId,
-        workerId,
+        phoneNumber,
         createdAt: new Date().toISOString(),
       };
 
       await postData(userData, "users");
       return userData;
     } catch (err) {
-      setError(getFriendlyErrorMessage(err.message, "signup"));
-    } finally {
-      setLoading(false);
+      setError(getFriendlyErrorMessage(err, "signup"));
+      console.log("ERROR FROM REGISTER USER FUNCTION", err.message);
     }
   };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
@@ -110,8 +119,6 @@ export const AuthProvider = ({ children }) => {
     signUp,
     registerWorker,
     logout,
-    setError,
-    setLoading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

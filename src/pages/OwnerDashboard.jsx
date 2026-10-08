@@ -2,11 +2,12 @@ import HeaderBar from "../components/layout/HeaderBar";
 import Sidebar from "../components/layout/Sidebar";
 import StatCard from "../components/dashboard/StatCard";
 import ProjectsHealth from "../components/dashboard/ProjectsHealth";
+import Error from "../components/Error";
 import { useMemo } from "react";
 import { useAppData } from "../context/useAppData";
 
 const OwnerDashboard = () => {
-  const { projects } = useAppData();
+  const { projects, error } = useAppData();
 
   const activeProjects = useMemo(() => {
     return projects?.filter((project) => project.status === "active");
@@ -21,11 +22,12 @@ const OwnerDashboard = () => {
   }, [projects]);
 
   return (
-    <div className="flex min-h-screen bg-[#F6F9FB] text-[#0E0E11] ">
+    <div className="flex min-h-screen bg-canvas text-foreground ">
       <Sidebar />
 
       <main className="flex-1 p-6 md:p-6">
         <HeaderBar title="Dashboard" subtitle="Overview of company projects" />
+        <Error error={error} />
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <StatCard

@@ -21,7 +21,7 @@ const App = () => {
         <Route
           path="/register-worker"
           element={
-            <ProtectedRoute allowedRoles="owner">
+            <ProtectedRoute requiredRole="owner">
               <WorkerRegistration />
             </ProtectedRoute>
           }
@@ -29,7 +29,7 @@ const App = () => {
         <Route
           path="/register-site"
           element={
-            <ProtectedRoute allowedRoles="owner">
+            <ProtectedRoute requiredRole="owner">
               <SiteRegistration />
             </ProtectedRoute>
           }
@@ -38,7 +38,7 @@ const App = () => {
         <Route
           path="/owner"
           element={
-            <ProtectedRoute allowedRoles="owner">
+            <ProtectedRoute requiredRole="owner">
               <OwnerDashboard />
             </ProtectedRoute>
           }
@@ -47,7 +47,7 @@ const App = () => {
         <Route
           path="/projects"
           element={
-            <ProtectedRoute allowedRoles="owner">
+            <ProtectedRoute requiredRole="owner">
               <Projects />
             </ProtectedRoute>
           }
@@ -56,7 +56,7 @@ const App = () => {
         <Route
           path="/people"
           element={
-            <ProtectedRoute allowedRoles="owner">
+            <ProtectedRoute requiredRole="owner">
               <People />
             </ProtectedRoute>
           }

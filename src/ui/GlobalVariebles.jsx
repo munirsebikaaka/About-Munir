@@ -1,8 +1,8 @@
 export const statusStyles = {
-  Healthy: "bg-[#EAF8F1] text-[#1B6A4D]",
-  "At Risk": "bg-[#FDECEF] text-[#A93B4D]",
-  Completed: "bg-[#EAF8F1] text-[#1B6A4D]",
-  "In Progress": "bg-[#EEF5FF] text-[#295C9B]",
-  Delayed: "bg-[#FDECEF] text-[#A93B4D]",
-  Pending: "bg-[#FFF4D9] text-[#9A5F00]",
+  Healthy: "bg-success-soft text-success",
+  "At Risk": "bg-danger-soft text-danger-text",
+  Completed: "bg-success-soft text-success",
+  "In Progress": "bg-brand-soft text-brand",
+  Delayed: "bg-danger-soft text-danger-text",
+  Pending: "bg-warning-soft text-warning-text",
 };

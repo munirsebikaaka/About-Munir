@@ -6,7 +6,7 @@ const NavigateButton = ({ children, page, justify }) => {
     <div className={`mt-6 flex items-center ${justify} gap-3`}>
       <button
         onClick={() => navigate(page)}
-        className="cursor-pointer rounded-xl bg-[#295C9B] px-4 py-2.5 text-sm font-semibold text-white shadow-sm">
+        className="cursor-pointer rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-text-on-brand shadow-sm">
         {children}
       </button>
     </div>

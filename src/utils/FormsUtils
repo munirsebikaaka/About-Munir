@@ -29,7 +29,13 @@ export const validatePassword = (password) => {
     passwordArray.includes(char),
   );
 
-  return hasLowercase && hasUppercase && hasNumber && hasSpecialCharacters;
+  return (
+    password.length >= 6 &&
+    hasLowercase &&
+    hasUppercase &&
+    hasNumber &&
+    hasSpecialCharacters
+  );
 };
 
 export const IsAllInputValuesProvided = (

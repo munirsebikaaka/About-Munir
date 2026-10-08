@@ -8,17 +8,17 @@ const Input = ({ label, icon: Icon, inputConfig, inputValueError }) => {
   const isPassword = inputConfig.type === "password";
   const hasError = inputValueError && inputConfig.value.trim() === "";
 
-  const commonStyles = ` w-full rounded-xl border  bg-white  pl-12 pr-12 py-2.5 text-sm  text-[#1e2a4a] placeholder:text-[#a0a6b1] transition-all duration-200 focus:outline-none
+  const commonStyles = ` w-full rounded-xl border  bg-surface  pl-12 pr-12 py-2.5 text-sm  text-text-primary placeholder:text-text-muted transition-all duration-200 focus:outline-none
       ${
         hasError
-          ? "border-[#c96d75] focus:ring-[#fbecee]"
-          : "border-[#e5e8ed] focus:border-[#3f6fb5] focus:ring-[#eaf3fb]"
+          ? "border-danger focus:ring-danger-soft"
+          : "border-border focus:border-brand-hover focus:ring-brand-soft"
       }
   `;
 
   return (
     <div className="flex flex-col gap-[0.2] relative">
-      <label className="font-semibold text-sm text-[#1e2a4a] ml-1.5">
+      <label className="font-semibold text-sm text-text-primary ml-1.5">
         {label}
       </label>
 
@@ -26,7 +26,7 @@ const Input = ({ label, icon: Icon, inputConfig, inputValueError }) => {
         {Icon && (
           <Icon
             size={20}
-            className={`absolute left-4 top-1/2 -translate-y-1/2 ${!hasError ? "text-[#737b89]" : "text-[#c96d75]"}`}
+            className={`absolute left-4 top-1/2 -translate-y-1/2 ${!hasError ? "text-text-muted" : "text-danger"}`}
           />
         )}
 
@@ -51,8 +51,9 @@ const Input = ({ label, icon: Icon, inputConfig, inputValueError }) => {
 
         {isPassword && (
           <button
+            type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-[#737b89] hover:text-[#3f6fb5]">
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-brand-hover">
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         )}
@@ -60,11 +61,11 @@ const Input = ({ label, icon: Icon, inputConfig, inputValueError }) => {
 
       {hasError && (
         <>
-          <div className="absolute right-3 flex items-center gap-2 text-sm text-[#c96d75]">
+          <div className="absolute right-3 flex items-center gap-2 text-sm text-danger">
             <span>{inputValueError}!</span>
           </div>
           <div
-            className={`absolute ${isPassword ? "right-9" : "right-3"} text-[#c96d75] top-[54%]`}>
+            className={`absolute ${isPassword ? "right-9" : "right-3"} text-danger top-[54%]`}>
             <CircleAlert size={15} />
           </div>
         </>

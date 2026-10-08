@@ -64,7 +64,7 @@ const SiteRegistration = () => {
     setLoading(true);
 
     try {
-      await postData(project, "projects");
+      await postData(project, "projects", user?.idToken);
       toast.success("Project registered succesfully!");
       setForm((prev) => ({
         ...prev,
@@ -76,14 +76,14 @@ const SiteRegistration = () => {
         budget: "",
       }));
     } catch (err) {
-      setFecthError(getFriendlyErrorMessage(err.message, "general"));
+      setFecthError(getFriendlyErrorMessage(err));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F9FB] text-[#0E0E11]">
+    <div className="min-h-screen bg-canvas text-foreground">
       <div className="flex min-h-screen flex-col md:flex-row">
         <Sidebar />
 
@@ -93,7 +93,7 @@ const SiteRegistration = () => {
             subtitle="Create a new construction site and track progress, materials, budgets, and people from one place."
           />
 
-          <div className="mt-6 rounded-2xl border border-[#E5E7EB] bg-white p-4 shadow-sm md:p-6">
+          <div className="mt-6 rounded-2xl border border-border bg-surface p-4 shadow-sm md:p-6">
             <form onSubmit={handleSubmit} className="mx-auto max-w-3xl">
               <div className="grid gap-4 md:grid-cols-2">
                 <Input

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lock, Mail, User, UserPlus } from "lucide-react";
 
@@ -7,15 +7,11 @@ import SubmitButton from "../../ui/SubmitButton";
 import Error from "../../components/Error";
 
 import { createHandleBlur } from "../../utils/FormsUtils";
-import {
-  IsAllInputValuesProvided,
-  validatePassword,
-} from "../../utils/FormsUtils";
+import { IsAllInputValuesProvided } from "../../utils/FormsUtils";
+// import { validatePassword } from "../../utils/FormsUtils";
 
 import { useAuth } from "../../context/useAuthData";
 import { getFriendlyErrorMessage } from "../../utils/errorMessages";
-import { fetchData } from "../../api/data";
-import SignUpDisabled from "../../components/SignupDisabled";
 import AuthLayout from "./AuthLayout";
 import AuthLink from "../../ui/AuthLink";
 import { toast } from "react-toastify";
@@ -29,14 +25,7 @@ const inputFieldNames = {
 
 const SignUp = () => {
   const navigate = useNavigate();
-
-  const {
-    signUp: signUpToDatabase,
-    loading,
-    error,
-    setError,
-    setLoading,
-  } = useAuth();
+  const { signUp: signUpToDatabase, error, setError } = useAuth();
 
   const [form, setForm] = useState({
     fullName: "",
@@ -44,11 +33,8 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const [loading, setLoading] = useState("");
   const [inputFieldErrors, setInputFieldErrors] = useState({});
-  const [fetchingUser, setFetchingUser] = useState(false);
-  const [ownerAccountExists, setOwnerAccountExists] = useState(false);
-  const [passwordError, setPasswordError] = useState("");
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -59,60 +45,40 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (!IsAllInputValuesProvided(form, inputFieldNames, setInputFieldErrors)) {
-    //   return;
-    // }
+    if (!IsAllInputValuesProvided(form, inputFieldNames, setInputFieldErrors)) {
+      return;
+    }
     // if (!validatePassword(form.password)) {
-    //   setPasswordError(
+    //   setError(
     //     "Strengthen your password by adding uppercase letters, lowercase letters, numbers, and symbols.",
     //   );
     //   return;
     // }
     // if (form.password !== form.confirmPassword) {
-    //   setPasswordError("Passwords do not match.");
+    //   setError("Passwords do not match.");
     //   return;
     // }
 
     setLoading(true);
     try {
       const result = await signUpToDatabase(
-        form.email,
-        form.password,
-        form.fullName,
+        form.email.trim(),
+        form.password.trim(),
+        form.fullName.trim(),
       );
 
-      if (result) {
-        navigate("/owner");
-        toast.success("Owner account registered succesfully!");
+      if (!result) {
+        return console.log("ERROR FROM SIGNUP PAGE", "No results");
       }
+      navigate("/owner");
+      toast.success("Owner account registered succesfully!");
     } catch (err) {
-      setError(getFriendlyErrorMessage(err.message, "signup"));
+      setError(getFriendlyErrorMessage(err, "signup"));
+      console.log("ERROR FROM SIGNUP PAGE", err.message);
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setFetchingUser(true);
-      try {
-        const users = await fetchData("users", setError);
-        const isOwnerAccountExists = users.some(
-          (user) => user?.role.toLowerCase() === "owner",
-        );
-        setOwnerAccountExists(isOwnerAccountExists);
-      } catch (err) {
-        setError(getFriendlyErrorMessage(err.message, "fetch"));
-      } finally {
-        setFetchingUser(false);
-      }
-    };
-    fetchUsers();
-  }, [setError]);
-
-  if (fetchingUser) return <p>loading...</p>;
-
-  if (ownerAccountExists) return <SignUpDisabled />;
 
   return (
     <AuthLayout
@@ -178,7 +144,7 @@ const SignUp = () => {
           icon={Lock}
         />
 
-        <Error message={error || passwordError}>{error || passwordError}</Error>
+        <Error error={error} />
 
         <div className="pt-2">
           <SubmitButton

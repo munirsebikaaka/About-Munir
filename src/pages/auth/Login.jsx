@@ -21,13 +21,13 @@ const inputFieldNames = {
 const Login = () => {
   const navigate = useNavigate();
 
-  const { login, loading, error, setError, setLoading } = useAuth();
+  const { login, error, setError } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
+  const [loading, setLoading] = useState("");
   const [inputFieldErrors, setInputFieldErrors] = useState({});
 
   const onChange = (e) => {
@@ -49,15 +49,13 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const result = await login(form.email, form.password, setError);
-      if (result && result.role === "owner") {
-        navigate("/owner");
-      } else if (result && result.role) {
-        navigate("/projets");
+      const result = await login(form.email, form.password);
+      if (!result) {
+        return console.log("No results from login");
       }
+      navigate("/owner");
     } catch (err) {
-      console.log("FULL FIREBASE ERROR:", err.response?.data);
-      setError(getFriendlyErrorMessage(err.message, "login"));
+      setError(getFriendlyErrorMessage(err, "login"));
     } finally {
       setLoading(false);
     }

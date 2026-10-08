@@ -86,14 +86,14 @@ const WorkerRegistration = () => {
         workerId: "",
       }));
     } catch (err) {
-      setFetchingErrors(getFriendlyErrorMessage(err.message, "signup"));
+      setFetchingErrors(getFriendlyErrorMessage(err, "signup"));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F9FB] text-[#0E0E11]">
+    <div className="min-h-screen bg-canvas text-foreground">
       <div className="flex min-h-screen flex-col md:flex-row">
         <Sidebar />
 
@@ -103,7 +103,7 @@ const WorkerRegistration = () => {
             subtitle="Add workers, project managers, supervisors, finance staff, and store personnel to the company system."
           />
 
-          <div className="mt-6 rounded-2xl border border-[#E5E7EB] bg-white p-4 shadow-sm md:p-6">
+          <div className="mt-6 rounded-2xl border border-border bg-surface p-4 shadow-sm md:p-6">
             <form
               onSubmit={handleSubmit}
               className="mx-auto max-w-3xl space-y-4">
@@ -148,19 +148,19 @@ const WorkerRegistration = () => {
               />
 
               <label className="mb-4 block">
-                <span className="mb-2 block text-sm font-medium text-[#0E0E11]">
+                <span className="mb-2 block text-sm font-medium text-foreground">
                   Role
                 </span>
                 <div className="relative">
                   <UserPlus
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#737b89]"
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-text-muted"
                     size={18}
                   />
                   <select
                     name="role"
                     value={form.role}
                     onChange={handleChange}
-                    className="w-full rounded-xl border border-[#E5E7EB] bg-white pl-11 pr-4 py-3 text-sm text-[#0E0E11] focus:border-[#295C9B] focus:outline-none focus:ring-2 focus:ring-[#CFE2FD]">
+                    className="w-full rounded-xl border border-border bg-surface pl-11 pr-4 py-3 text-sm text-foreground focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-avatar">
                     {roleOptions.map((role) => (
                       <option key={role} value={role}>
                         {role.replace("_", " ")}

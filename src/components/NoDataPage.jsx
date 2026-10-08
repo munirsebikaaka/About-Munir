@@ -7,21 +7,21 @@ const NoDataPge = () => {
   const pathName = urlParams.pathname;
 
   return (
-    <div className="flex min-h-[360px] items-center justify-center rounded-3xl bg-white">
+    <div className="flex min-h-[360px] items-center justify-center rounded-3xl bg-surface">
       <div className="max-w-sm px-6 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF4FB]">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-tint">
           {pathName === "/people" ? (
-            <Users className="h-6 w-6 text-[#295C9B]" />
+            <Users className="h-6 w-6 text-brand" />
           ) : (
-            <Building2 className="h-6 w-6 text-[#295C9B]" />
+            <Building2 className="h-6 w-6 text-brand" />
           )}
         </div>
 
-        <h2 className="mt-5 text-lg font-bold text-[#102A43]">
+        <h2 className="mt-5 text-lg font-bold text-text-primary">
           {pathName === "/people" ? " No team members yet" : "No projects yet"}
         </h2>
 
-        <p className="mt-2 text-sm leading-6 text-slate-500">
+        <p className="mt-2 text-sm leading-6 text-text-secondary">
           {pathName === "/people"
             ? "Register your first worker or project manager to start assigning responsibilities across your sites."
             : "Create your first construction site to start tracking activities, budgets, materials and progress."}

@@ -1,5 +1,40 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand: #295c9b;
+  --color-brand-hover: #224d87;
+  --color-brand-gradient: #4c82bc;
+  --color-brand-soft: #eef5ff;
+  --color-brand-tint: #eef4fb;
+  --color-brand-tint-strong: #d7e6f8;
+  --color-brand-border: #d7e3f8;
+  --color-brand-avatar: #cfe2fd;
+  --color-canvas: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f9fbfd;
+  --color-foreground: #0e0e11;
+  --color-text-primary: #102a43;
+  --color-text-secondary: #4b4047;
+  --color-text-muted: #7e7b86;
+  --color-text-faint: #94a3b8;
+  --color-text-on-brand: #ffffff;
+  --color-border: #e5e7eb;
+  --color-border-subtle: #eef2f7;
+  --color-border-strong: #cbd5e1;
+  --color-danger: #c96d75;
+  --color-danger-text: #a93b4d;
+  --color-danger-soft: #fdecef;
+  --color-success: #1b6a4d;
+  --color-success-soft: #eaf8f1;
+  --color-warning: #f0b54b;
+  --color-warning-text: #9a5f00;
+  --color-warning-soft: #fff4d9;
+  --shadow-card: 0 2px 12px rgb(15 23 42 / 3.5%);
+  --shadow-card-hover: 0 15px 35px rgb(15 23 42 / 8%);
+  --shadow-auth: 0 25px 50px -12px rgb(79 70 229 / 10%);
+  --shadow-success: 0 10px 15px -3px rgb(16 185 129 / 10%);
+}
+
 body {
   font-family: "Outfit", sans-serif;
 }
